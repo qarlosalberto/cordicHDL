@@ -1,12 +1,13 @@
 {
-  "name": "core",
+  "name": "cordicHDL",
   "version": "1.0.0",
-  "description": "Module description.",
+  "description": "Real-time cordic in VHDL.",
   "keywords": [
     "vhdl",
     "dsp",
-    "filter",
-    "window"
+    "cordic",
+    "cosine",
+    "sine"
   ],
   "files": [
     "doc",
@@ -16,19 +17,18 @@
     "build"
   ],
   "dependencies": {
-    "coreX": "git+http://xxx.com/gitlab/DEB_PRUEBA.git#v1.0.0",
     "shelljs":"0.8.2"
   },
-  "homepage": "http://xxx.com/gitlab/DEB_PRUEBA/blob/master/README.md",
+  "homepage": "https://github.com/qarlosalberto/cordicHDL",
   "bugs": {
-    "url": "http://xxx.com/gitlab/DEB_PRUEBA/issues"
+    "url": "https://github.com/qarlosalberto/cordicHDL/issues"
   },
   "src": [
-    "src/core_pkg.vhd",
-    "src/core_top.vhd"
+    "src/cordic_sincos_engine.vhd",
+    "src/cordic_sincos_engine_pkg.vhd"
   ],
   "scripts": {
     "postinstall": "node .scripts/copy-files; cp ./doc/README_integration.md README_development.md; rm -R .scripts src doc"
   },
-  "author": "FPGA"
+  "author": "qarlosalberto"
 }
