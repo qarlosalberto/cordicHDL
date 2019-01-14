@@ -5,26 +5,15 @@
 
 Respository description. Module functions.
 
-## Diagram
+## Model
 
-![functional cordic diagram](./images/cordic.png)
+- ```/tb/models/cordic_model.py```
+- Test model: ```python ./tb/models/cordic_model_tb.py```
 
-## cordic module description
-
-Module description
-
-## Module description 1
-
-Module description 1
-
-## Module description 2
-
-Module description 2
-
-### Documentation dependencies
-
-- doxygen: Documentation generation
-- texlive-full: LaTeX to pdf.
+## Tests
+```
+cd ./tb; python cordic_sincos_engine_run.py
+```
 
 ### Testbenchs dependencies
 
@@ -32,25 +21,30 @@ Module description 2
 ```
 sudo pip install vunit_hdl
 ```
-- GHDL gcc compiled.
 - numpy
+```
+sudo pip install numpy
+```
+- pandas
+```
+sudo pip install pandas
+```
 - lcov: code coverage.
 ```
 sudo apt-get install lcov
 ```
 - gtkwave: visualization.
 
-## Testbench documentation
 
-[README_TB](tb/README_TB.md)
+### Documentation dependencies
+- doxygen: Documentation generation
 
 ### Documentation generation
 
 ```
-cd lib/doc_gen/
-doxygen Doxyfile
+cd ./doc; doxygen Doxyfile
 ```
-The generated documentation is in /doc/html
+The generated documentation is in /doc/gen/html
 
 To generate documentation in .pdf
 

@@ -21,12 +21,12 @@ use ieee.numeric_std.all;
 
 entity cordic_sincos_engine is
   port (
-    clk     : in  std_logic;
-    dv_in   : in  std_logic;
-    data_in : in  std_logic_vector (19 downto 0);
-    cos_out : out std_logic_vector (19 downto 0);
-    sin_out : out std_logic_vector (19 downto 0);
-    dv_out  : out std_logic
+    clk     : in  std_logic; --! clock
+    dv_in   : in  std_logic; --! data valid input
+    data_in : in  std_logic_vector (19 downto 0); --! angle in radians Q2.17 format [-pi,pi]
+    cos_out : out std_logic_vector (19 downto 0); --! cosine
+    sin_out : out std_logic_vector (19 downto 0); --! sine
+    dv_out  : out std_logic --! data valid output
   );
 end cordic_sincos_engine;
 
