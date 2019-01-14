@@ -16,8 +16,14 @@
 | sin_out   | Q2.17 format          | sine           |
 | dv_out    | std_logic             | data vaild out |
 
-## Other considerations
+## Todo
 
+- DSP48E1 in Xilinx 7 series allows 25 × 18 two’s-complement multiplier.
+Reduce the size of the angle table to reduce the multipliers.
+
+- Include reset.
+
+- Reduce adder bits.
 
 ## Resources utilization
 
