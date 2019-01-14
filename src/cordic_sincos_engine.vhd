@@ -34,10 +34,10 @@ architecture rtl of cordic_sincos_engine is
   constant c_SIZE_INPUT : integer := 20;
   constant c_SIZE_INT   : integer :=  2;
   constant c_SIZE_DECIM : integer := 17;
-  constant PI_HALF      : signed(c_SIZE_INPUT-1 downto 0) := "00110010010000111111";
-  constant PI_HALF_NEG  : signed(c_SIZE_INPUT-1 downto 0) := "11001101101111000001";
-  constant PI           : signed(c_SIZE_INPUT-1 downto 0) := "01100100100001111110";
-  constant PI_NEG       : signed(c_SIZE_INPUT-1 downto 0) := "10011011011110000010";
+  constant c_PI_HALF      : signed(c_SIZE_INPUT-1 downto 0) := "00110010010000111111";
+  constant c_PI_HALF_NEG  : signed(c_SIZE_INPUT-1 downto 0) := "11001101101111000001";
+  constant c_PI           : signed(c_SIZE_INPUT-1 downto 0) := "01100100100001111110";
+  constant c_PI_NEG       : signed(c_SIZE_INPUT-1 downto 0) := "10011011011110000010";
   --
   constant X_INIT     : signed(c_SIZE_INPUT-1 downto 0) := "00100000000000000000"; -- 1
   constant Y_INIT     : signed(c_SIZE_INPUT-1 downto 0) := "00000000000000000000"; -- 0
@@ -97,12 +97,12 @@ begin
   r1_adapter_input : process(clk)
   begin
     if rising_edge(clk) then
-      if (signed(r0_data_in) > PI_HALF) then
+      if (signed(r0_data_in) > c_PI_HALF) then
         r1_signCos <= '1';
-        r1_input   <= PI - signed(r0_data_in);
-      elsif (signed(r0_data_in) < PI_HALF_NEG) then
+        r1_input   <= c_PI - signed(r0_data_in);
+      elsif (signed(r0_data_in) < c_PI_HALF_NEG) then
         r1_signCos <= '1';
-        r1_input   <= PI_NEG - signed(r0_data_in);
+        r1_input   <= c_PI_NEG - signed(r0_data_in);
       else
         r1_signCos <= '0';
         r1_input   <= signed(r0_data_in);

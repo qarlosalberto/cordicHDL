@@ -1,5 +1,5 @@
 
-# cordic: Development
+# Development
 
 ## Introduction
 

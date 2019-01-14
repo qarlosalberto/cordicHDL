@@ -1,5 +1,5 @@
 
-# sin-cos cordic: Integration
+# Integration
 
 ## Schemas
 

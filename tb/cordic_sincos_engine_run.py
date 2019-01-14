@@ -6,7 +6,6 @@ from vunit.ghdl_interface import GHDLInterface
 from vunit.simulator_factory import SIMULATOR_FACTORY
 from vunit   import VUnit, VUnitCLI
 import numpy as np
-import utils
 import math
 sys.path.append("./models")
 import utilsNumbers
