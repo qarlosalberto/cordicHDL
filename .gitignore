@@ -19,3 +19,4 @@ out.xml
 doc/gen
 psl_coverage.json
 modelsim.do
+tb/html
