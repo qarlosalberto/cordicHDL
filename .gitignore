@@ -16,6 +16,5 @@ tmp
 *.pyc
 *.s
 out.xml
-doc/gen
 psl_coverage.json
 modelsim.do
