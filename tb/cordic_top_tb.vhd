@@ -26,9 +26,8 @@ use ieee.numeric_std.all;
 library std;
 use std.textio.all;
 --
-library cordic_sincos_engine_lib;
-use cordic_sincos_engine_lib.cordic_sincos_engine_pkg.all;
--- use cordic_sincos_engine_lib.types_declaration_cordic_sincos_engine_pkg.all;
+library cordic_top_lib;
+use cordic_top_lib.cordic_top_pkg.all;
 -- vunit
 library vunit_lib;
 context vunit_lib.vunit_context;
@@ -50,24 +49,26 @@ context vunit_lib.vunit_context;
 use vunit_lib.array_pkg.all;
 use vunit_lib.integer_array_pkg.all;
 
-entity cordic_sincos_engine_tb is
+entity cordic_top_tb is
   --vunit
   generic (
-    nameTest   : string := "";
-    tb_path    : string := "./";
+    g_MODE     : integer := 0;
+    nameTest   : string  := "";
+    tb_path    : string  := "./";
     runner_cfg : string
   );
 end;
 
-architecture bench of cordic_sincos_engine_tb is
+architecture bench of cordic_top_tb is
   -- clock period
   constant clk_period      : time := 5 ns;
   -- Signal ports
   signal clk     : std_logic;
   signal dv_in   : std_logic;
-  signal data_in : std_logic_vector (19 downto 0);
-  signal cos_out : std_logic_vector (19 downto 0);
-  signal sin_out : std_logic_vector (19 downto 0);
+  signal data_0_in : std_logic_vector (19 downto 0);
+  signal data_1_in : std_logic_vector (19 downto 0);
+  signal data_1_out : std_logic_vector (19 downto 0);
+  signal data_0_out : std_logic_vector (19 downto 0);
   signal dv_out  : std_logic;
   -- Generics
   --
@@ -79,14 +80,18 @@ architecture bench of cordic_sincos_engine_tb is
 
 begin
   -- Instance
-  cordic_sincos_engine_i : cordic_sincos_engine
+  cordic_top_i : cordic_top
+  generic map (
+    g_MODE => g_MODE
+  )
   port map (
-    clk     => clk,
-    dv_in   => dv_in,
-    data_in => data_in,
-    cos_out => cos_out,
-    sin_out => sin_out,
-    dv_out  => dv_out
+    clk        => clk,
+    dv_in      => dv_in,
+    data_0_in  => data_0_in,
+    data_1_in  => data_1_in,
+    data_0_out => data_0_out,
+    data_1_out => data_1_out,
+    dv_out     => dv_out
   );
 
   -- test_runner_watchdog(runner, 30 us);
@@ -115,42 +120,42 @@ begin
   input : process
   begin
     dv_in <= '0';
-    data_inputs.load_csv(tb_path & "test_input" & nameTest & ".csv");
+    data_inputs.load_csv(tb_path & "test_input_0" & nameTest & ".csv");
     wait until (start_input = true);
     wait until (rising_edge(clk));
     -- Inputs
     for i in 0 to data_inputs.length-1 loop
-      dv_in    <= '1';
-      data_in  <= std_logic_vector(to_signed(data_inputs.get(i),c_SIZE_INPUT));
+      dv_in      <= '1';
+      data_0_in  <= std_logic_vector(to_signed(data_inputs.get(i),c_SIZE_INPUT));
       wait until (rising_edge(clk));
     end loop;
     end_input <= true;
   end process;
 
   output : process
-    variable sin_outputs : array_t;
-    variable sin_out_int : integer;
-    variable cos_outputs : array_t;
-    variable cos_out_int : integer;
+    variable data_0_outputs : array_t;
+    variable data_0_out_int : integer;
+    variable data_1_outputs : array_t;
+    variable data_1_out_int : integer;
   begin
     wait until (dv_out = '1' and rising_edge(clk));
-    sin_outputs.init(length => data_inputs.length,
+    data_0_outputs.init(length => data_inputs.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
-    cos_outputs.init(length => data_inputs.length,
+    data_1_outputs.init(length => data_inputs.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
     -- Inputs
     for i in 0 to data_inputs.length-1 loop
-      sin_out_int := to_integer(signed(sin_out));
-      sin_outputs.set(i,sin_out_int);
+      data_0_out_int := to_integer(signed(data_0_out));
+      data_0_outputs.set(i,data_0_out_int);
       --
-      cos_out_int := to_integer(signed(cos_out));
-      cos_outputs.set(i,cos_out_int);
+      data_1_out_int := to_integer(signed(data_1_out));
+      data_1_outputs.set(i,data_1_out_int);
       wait for 1*clk_period;
     end loop;
-    sin_outputs.save_csv(tb_path & "sin_vhdl" & nameTest &".csv");
-    cos_outputs.save_csv(tb_path & "cos_vhdl" & nameTest &".csv");
+    data_0_outputs.save_csv(tb_path & "sin_vhdl" & nameTest &".csv");
+    data_1_outputs.save_csv(tb_path & "cos_vhdl" & nameTest &".csv");
   end process;
 
   clk_process :process

@@ -28,7 +28,7 @@
     "src/cordic_sincos_engine_pkg.vhd"
   ],
   "scripts": {
-    "test": "cd ./tb/; python cordic_sincos_engine_run.py",
+    "test": "cd ./tb/; python cordic_top_run.py --verbose",
     "postinstall": "node .scripts/copy-files; cp ./doc/README_integration.md README_development.md; rm -R .scripts src doc"
   },
   "author": "qarlosalberto"

@@ -33,22 +33,25 @@ import utilsNumbers
 ##############################################################################
 
 #pre_check func
-def make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS):
+def make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS,g_MODE):
   print("+++++++++++++++++++++++++++")
   """
   Before test.
   """
-  inputs = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
-  inputsXQN = utilsNumbers.f2xqnDecimal(inputs,"signed",2,17)
-  np.savetxt('test_input.csv', inputsXQN, delimiter=',',fmt='%1d')
+  inputs0 = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
+  inputs1 = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
+  inputs0XQN = utilsNumbers.f2xqnDecimal(inputs0,"signed",2,17)
+  inputs1XQN = utilsNumbers.f2xqnDecimal(inputs1,"signed",2,17)
+  np.savetxt('test_input_0.csv', inputs0XQN, delimiter=',',fmt='%1d')
+  np.savetxt('test_input_1.csv', inputs1XQN, delimiter=',',fmt='%1d')
 
 #post_check func
-def make_post_check():
+def make_post_check(g_MODE):
   """
   After test.
   """
   def post_check(output_path):
-    inputs  = utilsNumbers.xqnInt2f( np.loadtxt("test_input.csv",dtype=int,delimiter=','),"signed",2,17)
+    inputs  = utilsNumbers.xqnInt2f( np.loadtxt("test_input_0.csv",dtype=int,delimiter=','),"signed",2,17)
     sinVHDL = utilsNumbers.xqnInt2f( np.loadtxt("sin_vhdl.csv",dtype=int,delimiter=','),"signed",2,17)
     cosVHDL = utilsNumbers.xqnInt2f( np.loadtxt("cos_vhdl.csv",dtype=int,delimiter=','),"signed",2,17)
 
@@ -104,24 +107,29 @@ ui = VUnit.from_argv()
 ui.add_array_util()
 
 #Add module sources.
-cordic_sincos_engine_lib = ui.add_library("cordic_sincos_engine_lib")
-cordic_sincos_engine_lib.add_source_files("../src/cordic_sincos_engine.vhd")
-cordic_sincos_engine_lib.add_source_files("../src/cordic_sincos_engine_pkg.vhd")
+cordic_top_lib = ui.add_library("cordic_top_lib")
+cordic_top_lib.add_source_files("../src/cordic_sincos_engine.vhd")
+cordic_top_lib.add_source_files("../src/cordic_sincos_engine_pkg.vhd")
+cordic_top_lib.add_source_files("../src/cordic_top.vhd")
+cordic_top_lib.add_source_files("../src/cordic_top_pkg.vhd")
 
 #Add tb sources.
-cordic_sincos_engine_tb_lib = ui.add_library("cordic_sincos_engine_tb_lib")
-cordic_sincos_engine_tb_lib.add_source_files("cordic_sincos_engine_tb.vhd")
+cordic_top_tb_lib = ui.add_library("cordic_top_tb_lib")
+cordic_top_tb_lib.add_source_files("cordic_top_tb.vhd")
 
 #func precheck
-tb_generated = cordic_sincos_engine_tb_lib.entity("cordic_sincos_engine_tb")
+tb_generated = cordic_top_tb_lib.entity("cordic_top_tb")
 
 g_SIZE_INPUT  = 20
 g_SIZE_OUTPUT = 20
 NUM_TESTS     = 1000
+g_MODE        = 1
+tb_path        = "./"
 
 for test in tb_generated.get_tests():
-    test.add_config(name="prueba",pre_config=make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS),
-    post_check=make_post_check())
+    test.add_config(name="prueba",pre_config=make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS,g_MODE),
+    generics=dict(g_MODE=g_MODE,tb_path=tb_path),
+    post_check=make_post_check(g_MODE))
 
 
 ##############################################################################
@@ -130,14 +138,14 @@ for test in tb_generated.get_tests():
 
 #GHDL parameters.
 if(code_coverage==1):
-  cordic_sincos_engine_lib.add_compile_option   ("ghdl.flags"     , [ "-fexplicit","--no-vital-checks","-frelaxed-rules","-fprofile-arcs","-ftest-coverage"])
-  cordic_sincos_engine_tb_lib.add_compile_option("ghdl.flags"     , [ "-fexplicit","--no-vital-checks","-frelaxed-rules","-fprofile-arcs","-ftest-coverage"])
+  cordic_top_lib.add_compile_option   ("ghdl.flags"     , [ "-fexplicit","--no-vital-checks","-frelaxed-rules","-fprofile-arcs","-ftest-coverage"])
+  cordic_top_tb_lib.add_compile_option("ghdl.flags"     , [ "-fexplicit","--no-vital-checks","-frelaxed-rules","-fprofile-arcs","-ftest-coverage"])
   ui.set_sim_option("ghdl.elab_flags"      , ["-fexplicit","--no-vital-checks","-frelaxed-rules","-Wl,-lgcov"])
   ui.set_sim_option("modelsim.init_files.after_load" ,["modelsim.do"])
   ui.set_sim_option("disable_ieee_warnings", True)
 else:
-  cordic_sincos_engine_lib.add_compile_option   ("ghdl.flags"     , ["-fexplicit","--no-vital-checks","-frelaxed-rules"])
-  cordic_sincos_engine_tb_lib.add_compile_option("ghdl.flags"     , ["-fexplicit","--no-vital-checks","-frelaxed-rules"])
+  cordic_top_lib.add_compile_option   ("ghdl.flags"     , ["-fexplicit","--no-vital-checks","-frelaxed-rules"])
+  cordic_top_tb_lib.add_compile_option("ghdl.flags"     , ["-fexplicit","--no-vital-checks","-frelaxed-rules"])
   ui.set_sim_option("ghdl.elab_flags"      , ["-fexplicit","--no-vital-checks","-frelaxed-rules"])
   ui.set_sim_option("modelsim.init_files.after_load" ,["modelsim.do"])
   ui.set_sim_option("disable_ieee_warnings", True)
