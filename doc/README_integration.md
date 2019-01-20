@@ -26,7 +26,7 @@
 | data_0_in  | Q2.17 format [-1,1]   | x               |
 | data_1_in  | Q2.17 format [-1,1]   | y               |
 | data_0_out | Q2.17 format          | arctg(y/x)      |
-| data_1_out | Q2.17 format          | sqrt(x*x + y*y) |
+| data_1_out | Q2.17 format          | sqrt(x^2 + y^2) |
 | dv_out     | std_logic             | data vaild out  |
 
 ## Todo
