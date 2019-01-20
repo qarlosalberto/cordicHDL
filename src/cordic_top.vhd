@@ -32,8 +32,7 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 --! cordic sincos
-use work.cordic_sincos_engine_pkg.all;
-
+use work.cordic_engines_pkg.all;
 
 --! @brief   implementation
 --! @details implementation of cordic
@@ -55,7 +54,6 @@ entity cordic_top is
 end cordic_top;
 
 architecture rtl of cordic_top is
-
 begin
 
   sincos : if g_MODE = 1 generate
@@ -69,5 +67,18 @@ begin
       dv_out  => dv_out
     );
   end generate sincos;
+
+  arctgmag : if g_MODE = 2 generate
+    cordic_arctgmag_engine_i : cordic_arctg_mag_engine
+    port map (
+      clk     => clk,
+      dv_in   => dv_in,
+      x_in    => data_0_in,
+      y_in    => data_1_in,
+      arctg_out => data_0_out,
+      mag_out   => data_1_out,
+      dv_out    => dv_out
+    );
+  end generate arctgmag;
 
 end rtl;

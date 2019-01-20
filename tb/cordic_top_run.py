@@ -109,7 +109,8 @@ ui.add_array_util()
 #Add module sources.
 cordic_top_lib = ui.add_library("cordic_top_lib")
 cordic_top_lib.add_source_files("../src/cordic_sincos_engine.vhd")
-cordic_top_lib.add_source_files("../src/cordic_sincos_engine_pkg.vhd")
+cordic_top_lib.add_source_files("../src/cordic_arctg_mag_engine.vhd")
+cordic_top_lib.add_source_files("../src/cordic_engines_pkg.vhd")
 cordic_top_lib.add_source_files("../src/cordic_top.vhd")
 cordic_top_lib.add_source_files("../src/cordic_top_pkg.vhd")
 
