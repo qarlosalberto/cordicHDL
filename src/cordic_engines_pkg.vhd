@@ -34,7 +34,7 @@ use ieee.numeric_std.all;
 --! @details package of cordic
 --! @ingroup cordic
 
-package cordic_sincos_engine_pkg is
+package cordic_engines_pkg is
 
   component cordic_sincos_engine is
   port (
@@ -46,5 +46,18 @@ package cordic_sincos_engine_pkg is
     dv_out  : out std_logic
   );
   end component;
+
+  component cordic_arctg_mag_engine is
+  port (
+    clk       : in  std_logic;
+    dv_in     : in  std_logic;
+    x_in      : in  std_logic_vector (19 downto 0);
+    y_in      : in  std_logic_vector (19 downto 0);
+    arctg_out : out std_logic_vector (19 downto 0);
+    mag_out   : out std_logic_vector (19 downto 0);
+    dv_out    : out std_logic --! data valid output
+  );
+  end component;
+
 
 end package;

@@ -32,8 +32,7 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 --! cordic sincos
-use work.cordic_sincos_engine_pkg.all;
-
+use work.cordic_engines_pkg.all;
 
 --! @brief   implementation
 --! @details implementation of cordic
@@ -44,18 +43,17 @@ entity cordic_top is
     g_MODE : integer := 1
   );
   port (
-    clk        : in  std_logic;
-    dv_in      : in  std_logic;
-    data_0_in  : in  std_logic_vector (19 downto 0);
-    data_1_in  : in  std_logic_vector (19 downto 0);
-    data_0_out : out std_logic_vector (19 downto 0);
-    data_1_out : out std_logic_vector (19 downto 0);
-    dv_out     : out std_logic
+    clk        : in  std_logic; --! clock
+    dv_in      : in  std_logic; --! data valid in
+    data_0_in  : in  std_logic_vector (19 downto 0); --! data 0 in
+    data_1_in  : in  std_logic_vector (19 downto 0); --! data 1 in
+    data_0_out : out std_logic_vector (19 downto 0); --! data 0 out
+    data_1_out : out std_logic_vector (19 downto 0); --! data 1 out
+    dv_out     : out std_logic --! data valid out
   );
 end cordic_top;
 
 architecture rtl of cordic_top is
-
 begin
 
   sincos : if g_MODE = 1 generate
@@ -69,5 +67,22 @@ begin
       dv_out  => dv_out
     );
   end generate sincos;
+
+  arctgmag : if g_MODE = 2 generate
+    cordic_arctgmag_engine_i : cordic_arctg_mag_engine
+    port map (
+      clk     => clk,
+      dv_in   => dv_in,
+      x_in    => data_0_in,
+      y_in    => data_1_in,
+      arctg_out => data_0_out,
+      mag_out   => data_1_out,
+      dv_out    => dv_out
+    );
+  end generate arctgmag;
+
+  -- -- PSL test
+  -- psl default clock is rising_edge (clk);
+  -- psl EXAMPLE_PSL: cover clk;
 
 end rtl;

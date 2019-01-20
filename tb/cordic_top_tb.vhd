@@ -31,21 +31,6 @@ use cordic_top_lib.cordic_top_pkg.all;
 -- vunit
 library vunit_lib;
 context vunit_lib.vunit_context;
--- use vunit_lib.array_pkg.all;
--- use vunit_lib.lang.all;
--- use vunit_lib.string_ops.all;
--- use vunit_lib.dictionary.all;
--- use vunit_lib.path.all;
--- use vunit_lib.log_types_pkg.all;
--- use vunit_lib.log_special_types_pkg.all;
--- use vunit_lib.log_pkg.all;
--- use vunit_lib.check_types_pkg.all;
--- use vunit_lib.check_special_types_pkg.all;
--- use vunit_lib.check_pkg.all;
--- use vunit_lib.run_types_pkg.all;
--- use vunit_lib.run_special_types_pkg.all;
--- use vunit_lib.run_base_pkg.all;
--- use vunit_lib.run_pkg.all;
 use vunit_lib.array_pkg.all;
 use vunit_lib.integer_array_pkg.all;
 
@@ -76,7 +61,8 @@ architecture bench of cordic_top_tb is
   signal    end_input   : boolean := false;
   constant c_SIZE_INPUT : integer := 20;
 
-  shared variable data_inputs : array_t;
+  shared variable data_input0 : array_t;
+  shared variable data_input1 : array_t;
 
 begin
   -- Instance
@@ -120,13 +106,15 @@ begin
   input : process
   begin
     dv_in <= '0';
-    data_inputs.load_csv(tb_path & "test_input_0" & nameTest & ".csv");
+    data_input0.load_csv(tb_path & "test_input_0_" & nameTest & ".csv");
+    data_input1.load_csv(tb_path & "test_input_1_" & nameTest & ".csv");
     wait until (start_input = true);
     wait until (rising_edge(clk));
     -- Inputs
-    for i in 0 to data_inputs.length-1 loop
+    for i in 0 to data_input0.length-1 loop
       dv_in      <= '1';
-      data_0_in  <= std_logic_vector(to_signed(data_inputs.get(i),c_SIZE_INPUT));
+      data_0_in  <= std_logic_vector(to_signed(data_input0.get(i),c_SIZE_INPUT));
+      data_1_in  <= std_logic_vector(to_signed(data_input1.get(i),c_SIZE_INPUT));
       wait until (rising_edge(clk));
     end loop;
     end_input <= true;
@@ -139,14 +127,14 @@ begin
     variable data_1_out_int : integer;
   begin
     wait until (dv_out = '1' and rising_edge(clk));
-    data_0_outputs.init(length => data_inputs.length,
+    data_0_outputs.init(length => data_input0.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
-    data_1_outputs.init(length => data_inputs.length,
+    data_1_outputs.init(length => data_input0.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
     -- Inputs
-    for i in 0 to data_inputs.length-1 loop
+    for i in 0 to data_input0.length-1 loop
       data_0_out_int := to_integer(signed(data_0_out));
       data_0_outputs.set(i,data_0_out_int);
       --
@@ -154,8 +142,8 @@ begin
       data_1_outputs.set(i,data_1_out_int);
       wait for 1*clk_period;
     end loop;
-    data_0_outputs.save_csv(tb_path & "sin_vhdl" & nameTest &".csv");
-    data_1_outputs.save_csv(tb_path & "cos_vhdl" & nameTest &".csv");
+    data_0_outputs.save_csv(tb_path & "out0_vhdl_" & nameTest &".csv");
+    data_1_outputs.save_csv(tb_path & "out1_vhdl_" & nameTest &".csv");
   end process;
 
   clk_process :process
