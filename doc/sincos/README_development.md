@@ -17,7 +17,7 @@ npm test
 or
 
 ```
-cd ./tb; python cordic_top_run.py
+cd ./tb; python cordic_sincos_engine_run.py
 ```
 
 ### Testbenchs dependencies

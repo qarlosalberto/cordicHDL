@@ -52,8 +52,9 @@ use vunit_lib.integer_array_pkg.all;
 entity cordic_top_tb is
   --vunit
   generic (
-    nameTest   : string := "";
-    tb_path    : string := "./";
+    g_MODE     : integer := 0;
+    nameTest   : string  := "";
+    tb_path    : string  := "./";
     runner_cfg : string
   );
 end;
@@ -80,6 +81,9 @@ architecture bench of cordic_top_tb is
 begin
   -- Instance
   cordic_top_i : cordic_top
+  generic map (
+    g_MODE => g_MODE
+  )
   port map (
     clk        => clk,
     dv_in      => dv_in,

@@ -33,17 +33,20 @@ import utilsNumbers
 ##############################################################################
 
 #pre_check func
-def make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS):
+def make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS,g_MODE):
   print("+++++++++++++++++++++++++++")
   """
   Before test.
   """
-  inputs = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
-  inputsXQN = utilsNumbers.f2xqnDecimal(inputs,"signed",2,17)
-  np.savetxt('test_input_0.csv', inputsXQN, delimiter=',',fmt='%1d')
+  inputs0 = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
+  inputs1 = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
+  inputs0XQN = utilsNumbers.f2xqnDecimal(inputs0,"signed",2,17)
+  inputs1XQN = utilsNumbers.f2xqnDecimal(inputs1,"signed",2,17)
+  np.savetxt('test_input_0.csv', inputs0XQN, delimiter=',',fmt='%1d')
+  np.savetxt('test_input_1.csv', inputs1XQN, delimiter=',',fmt='%1d')
 
 #post_check func
-def make_post_check():
+def make_post_check(g_MODE):
   """
   After test.
   """
@@ -120,10 +123,13 @@ tb_generated = cordic_top_tb_lib.entity("cordic_top_tb")
 g_SIZE_INPUT  = 20
 g_SIZE_OUTPUT = 20
 NUM_TESTS     = 1000
+g_MODE        = 1
+tb_path        = "./"
 
 for test in tb_generated.get_tests():
-    test.add_config(name="prueba",pre_config=make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS),
-    post_check=make_post_check())
+    test.add_config(name="prueba",pre_config=make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS,g_MODE),
+    generics=dict(g_MODE=g_MODE,tb_path=tb_path),
+    post_check=make_post_check(g_MODE))
 
 
 ##############################################################################

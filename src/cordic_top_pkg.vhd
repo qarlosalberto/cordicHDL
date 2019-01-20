@@ -37,15 +37,18 @@ use ieee.numeric_std.all;
 package cordic_top_pkg is
 
   component cordic_top is
-  port (
-    clk        : in  std_logic;
-    dv_in      : in  std_logic;
-    data_0_in  : in  std_logic_vector (19 downto 0);
-    data_1_in  : in  std_logic_vector (19 downto 0);
-    data_0_out : out std_logic_vector (19 downto 0);
-    data_1_out : out std_logic_vector (19 downto 0);
-    dv_out     : out std_logic
-  );
+    generic (
+      g_MODE : integer := 1
+    );
+    port (
+      clk        : in  std_logic;
+      dv_in      : in  std_logic;
+      data_0_in  : in  std_logic_vector (19 downto 0);
+      data_1_in  : in  std_logic_vector (19 downto 0);
+      data_0_out : out std_logic_vector (19 downto 0);
+      data_1_out : out std_logic_vector (19 downto 0);
+      dv_out     : out std_logic
+    );
   end component;
 
 end package;
