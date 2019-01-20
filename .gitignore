@@ -2,7 +2,6 @@
 vivado_project/
 node_modules/
 vunit_out/
-html/
 tmp
 *.gcda
 *.gcno
