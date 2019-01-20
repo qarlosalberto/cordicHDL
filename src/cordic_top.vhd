@@ -40,6 +40,9 @@ use work.cordic_sincos_engine_pkg.all;
 --! @ingroup cordic
 
 entity cordic_top is
+  generic (
+    g_MODE : integer := 1
+  );
   port (
     clk        : in  std_logic;
     dv_in      : in  std_logic;
@@ -55,14 +58,16 @@ architecture rtl of cordic_top is
 
 begin
 
-  cordic_sincos_engine_i : cordic_sincos_engine
-  port map (
-    clk     => clk,
-    dv_in   => dv_in,
-    data_in => data_0_in,
-    sin_out => data_0_out,
-    cos_out => data_1_out,
-    dv_out  => dv_out
-  );
+  sincos : if g_MODE = 1 generate
+    cordic_sincos_engine_i : cordic_sincos_engine
+    port map (
+      clk     => clk,
+      dv_in   => dv_in,
+      data_in => data_0_in,
+      sin_out => data_0_out,
+      cos_out => data_1_out,
+      dv_out  => dv_out
+    );
+  end generate sincos;
 
 end rtl;
