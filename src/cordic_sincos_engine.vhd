@@ -62,16 +62,19 @@ architecture rtl of cordic_sincos_engine is
   signal r2_a         : typea_input;
   signal r2_signCos   : std_logic_vector(c_SIZE_INPUT-1 downto 0);
   signal r2_shift_dv : std_logic_vector(c_SIZE_INPUT-1 downto 0) := (OTHERS => '0');
-  constant r2_ang     : typea_input := (
-    "00011001001000011111","00001110110101100011","00000111110101101101","00000011111110101011",
-    "00000001111111110101","00000000111111111110","00000000011111111111","00000000001111111111",
-    "00000000000111111111","00000000000011111111","00000000000001111111","00000000000000111111",
-    "00000000000000011111","00000000000000001111","00000000000000000111","00000000000000000011"
+  -- Q0.17
+  type typea_inputa is array (0 to c_NUM_STAGES-1) of signed(c_SIZE_INPUT-c_SIZE_INT-1 downto 0);
+  constant r2_ang     : typea_inputa := (
+    "011001001000011111","001110110101100011","000111110101101101","000011111110101011",
+    "000001111111110101","000000111111111110","000000011111111111","000000001111111111",
+    "000000000111111111","000000000011111111","000000000001111111","000000000000111111",
+    "000000000000011111","000000000000001111","000000000000000111","000000000000000011"
   );
-  constant c_CORRECTION : signed(c_SIZE_INPUT-1 downto 0) := "00010011011011101001"; -- 0.607252935103
+  -- To ensure 1 DSP by mult: 20x18
+  constant c_CORRECTION  : signed(c_SIZE_INPUT-c_SIZE_INT-1 downto 0) := "010011011011101001"; -- 0.607252935103
   -- r3: cordic 2
-  signal r3_sin : signed(2*c_SIZE_INPUT-1 downto 0);
-  signal r3_cos : signed(2*c_SIZE_INPUT-1 downto 0);
+  signal r3_sin : signed(2*c_SIZE_INPUT-c_SIZE_INT-1 downto 0);
+  signal r3_cos : signed(2*c_SIZE_INPUT-c_SIZE_INT-1 downto 0);
   signal r3b_sin : signed(c_SIZE_INPUT-1 downto 0);
   signal r3b_cos : signed(c_SIZE_INPUT-1 downto 0);
   signal r3_signCos : std_logic;
@@ -165,9 +168,8 @@ begin
       r3_dv      <= r2_shift_dv(c_NUM_STAGES-1);
     end if;
   end process;
-  r3b_sin <= r3_sin(2*c_SIZE_INPUT-1) & r3_sin(c_SIZE_INT+2*c_SIZE_DECIM-1 downto c_SIZE_DECIM);
-  r3b_cos <= r3_cos(2*c_SIZE_INPUT-1) & r3_cos(c_SIZE_INT+2*c_SIZE_DECIM-1 downto c_SIZE_DECIM);
-
+  r3b_sin <= r3_sin(2*c_SIZE_INPUT-2-1) & r3_sin(c_SIZE_INT+2*c_SIZE_DECIM-1 downto c_SIZE_DECIM);
+  r3b_cos <= r3_cos(2*c_SIZE_INPUT-2-1) & r3_cos(c_SIZE_INT+2*c_SIZE_DECIM-1 downto c_SIZE_DECIM);
   -- ###########################################################################
   -- ############################  ADAPTER OUTPUT ##############################
   -- ###########################################################################

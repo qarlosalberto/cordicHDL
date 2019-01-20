@@ -99,7 +99,7 @@ tb_generated = cordic_sincos_engine_tb_lib.entity("cordic_sincos_engine_tb")
 
 g_SIZE_INPUT  = 20
 g_SIZE_OUTPUT = 20
-NUM_TESTS     = 500
+NUM_TESTS     = 1000
 
 for test in tb_generated.get_tests():
     test.add_config(name="prueba",pre_config=make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS),
