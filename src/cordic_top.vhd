@@ -43,13 +43,13 @@ entity cordic_top is
     g_MODE : integer := 1
   );
   port (
-    clk        : in  std_logic;
-    dv_in      : in  std_logic;
-    data_0_in  : in  std_logic_vector (19 downto 0);
-    data_1_in  : in  std_logic_vector (19 downto 0);
-    data_0_out : out std_logic_vector (19 downto 0);
-    data_1_out : out std_logic_vector (19 downto 0);
-    dv_out     : out std_logic
+    clk        : in  std_logic; --! clock
+    dv_in      : in  std_logic; --! data valid in
+    data_0_in  : in  std_logic_vector (19 downto 0); --! data 0 in
+    data_1_in  : in  std_logic_vector (19 downto 0); --! data 1 in
+    data_0_out : out std_logic_vector (19 downto 0); --! data 0 out
+    data_1_out : out std_logic_vector (19 downto 0); --! data 1 out
+    dv_out     : out std_logic --! data valid out
   );
 end cordic_top;
 
@@ -80,5 +80,9 @@ begin
       dv_out    => dv_out
     );
   end generate arctgmag;
+
+  -- -- PSL test
+  -- psl default clock is rising_edge (clk);
+  -- psl EXAMPLE_PSL: cover clk;
 
 end rtl;

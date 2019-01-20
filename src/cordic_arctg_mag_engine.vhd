@@ -33,19 +33,19 @@ use ieee.numeric_std.all;
 --! @brief   implementation
 --! @details implementation of arctg-magnitude cordic
 --! @ingroup cordic
-entity cordic_arctgmag_engine is
+entity cordic_arctg_mag_engine is
   port (
     clk     : in  std_logic; --! clock
     dv_in   : in  std_logic; --! data valid input
-    x_in    : in  std_logic_vector (19 downto 0); --! x in Q2.17 format [0,1]
-    y_in    : in  std_logic_vector (19 downto 0); --! y in Q2.17 format [0,1]
+    x_in    : in  std_logic_vector (19 downto 0);   --! x in Q2.17 format [0,1]
+    y_in    : in  std_logic_vector (19 downto 0);   --! y in Q2.17 format [0,1]
     arctg_out : out std_logic_vector (19 downto 0); --! arctan(y/x)
     mag_out   : out std_logic_vector (19 downto 0); --! magnitude sqrt(x*x+y*y)
     dv_out  : out std_logic --! data valid output
   );
-end cordic_arctgmag_engine;
+end cordic_arctg_mag_engine;
 
-architecture rtl of cordic_arctgmag_engine is
+architecture rtl of cordic_arctg_mag_engine is
   constant c_SIZE_INPUT : integer := 20;
   constant c_SIZE_INT   : integer :=  2;
   constant c_SIZE_DECIM : integer := 17;
@@ -155,6 +155,6 @@ begin
   --
   arctg_out <= std_logic_vector(r2_arctg);
   mag_out   <= std_logic_vector(r2b_mag) ;
-
+  dv_out    <= r2_dv;
 
 end rtl;
