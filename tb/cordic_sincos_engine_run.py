@@ -40,7 +40,7 @@ def make_pre_check(g_SIZE_INPUT,g_SIZE_OUTPUT,NUM_TESTS):
   """
   inputs = (np.random.random_sample(NUM_TESTS)-0.5)*2*math.pi
   inputsXQN = utilsNumbers.f2xqnDecimal(inputs,"signed",2,17)
-  np.savetxt('test_input.csv', inputsXQN, delimiter=',',fmt='%1d')
+  np.savetxt('test_input_0.csv', inputsXQN, delimiter=',',fmt='%1d')
 
 #post_check func
 def make_post_check():
@@ -48,7 +48,7 @@ def make_post_check():
   After test.
   """
   def post_check(output_path):
-    inputs  = utilsNumbers.xqnInt2f( np.loadtxt("test_input.csv",dtype=int,delimiter=','),"signed",2,17)
+    inputs  = utilsNumbers.xqnInt2f( np.loadtxt("test_input_0.csv",dtype=int,delimiter=','),"signed",2,17)
     sinVHDL = utilsNumbers.xqnInt2f( np.loadtxt("sin_vhdl.csv",dtype=int,delimiter=','),"signed",2,17)
     cosVHDL = utilsNumbers.xqnInt2f( np.loadtxt("cos_vhdl.csv",dtype=int,delimiter=','),"signed",2,17)
 

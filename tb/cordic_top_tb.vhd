@@ -116,12 +116,12 @@ begin
   input : process
   begin
     dv_in <= '0';
-    data_inputs.load_csv(tb_path & "test_input" & nameTest & ".csv");
+    data_inputs.load_csv(tb_path & "test_input_0" & nameTest & ".csv");
     wait until (start_input = true);
     wait until (rising_edge(clk));
     -- Inputs
     for i in 0 to data_inputs.length-1 loop
-      dv_in    <= '1';
+      dv_in      <= '1';
       data_0_in  <= std_logic_vector(to_signed(data_inputs.get(i),c_SIZE_INPUT));
       wait until (rising_edge(clk));
     end loop;
@@ -129,29 +129,29 @@ begin
   end process;
 
   output : process
-    variable sin_outputs : array_t;
-    variable sin_out_int : integer;
-    variable cos_outputs : array_t;
-    variable cos_out_int : integer;
+    variable data_0_outputs : array_t;
+    variable data_0_out_int : integer;
+    variable data_1_outputs : array_t;
+    variable data_1_out_int : integer;
   begin
     wait until (dv_out = '1' and rising_edge(clk));
-    sin_outputs.init(length => data_inputs.length,
+    data_0_outputs.init(length => data_inputs.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
-    cos_outputs.init(length => data_inputs.length,
+    data_1_outputs.init(length => data_inputs.length,
                     bit_width => c_SIZE_INPUT,
                     is_signed => true);
     -- Inputs
     for i in 0 to data_inputs.length-1 loop
-      sin_out_int := to_integer(signed(data_0_out));
-      sin_outputs.set(i,sin_out_int);
+      data_0_out_int := to_integer(signed(data_0_out));
+      data_0_outputs.set(i,data_0_out_int);
       --
-      cos_out_int := to_integer(signed(data_1_out));
-      cos_outputs.set(i,cos_out_int);
+      data_1_out_int := to_integer(signed(data_1_out));
+      data_1_outputs.set(i,data_1_out_int);
       wait for 1*clk_period;
     end loop;
-    sin_outputs.save_csv(tb_path & "sin_vhdl" & nameTest &".csv");
-    cos_outputs.save_csv(tb_path & "cos_vhdl" & nameTest &".csv");
+    data_0_outputs.save_csv(tb_path & "sin_vhdl" & nameTest &".csv");
+    data_1_outputs.save_csv(tb_path & "cos_vhdl" & nameTest &".csv");
   end process;
 
   clk_process :process
