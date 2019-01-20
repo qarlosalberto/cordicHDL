@@ -1,0 +1,35 @@
+{
+  "name": "cordicHDL",
+  "version": "1.0.0",
+  "description": "Real-time cordic in VHDL.",
+  "keywords": [
+    "vhdl",
+    "dsp",
+    "cordic",
+    "cosine",
+    "sine"
+  ],
+  "files": [
+    "doc",
+    ".scripts",
+    "src",
+    "README_integration.md",
+    "build"
+  ],
+  "dependencies": {
+    "shelljs":"0.8.2"
+  },
+  "homepage": "https://github.com/qarlosalberto/cordicHDL",
+  "bugs": {
+    "url": "https://github.com/qarlosalberto/cordicHDL/issues"
+  },
+  "src": [
+    "src/cordic_sincos_engine.vhd",
+    "src/cordic_sincos_engine_pkg.vhd"
+  ],
+  "scripts": {
+    "test": "cd ./tb/; python cordic_sincos_engine_run.py",
+    "postinstall": "node .scripts/copy-files; cp ./doc/README_integration.md README_development.md; rm -R .scripts src doc"
+  },
+  "author": "qarlosalberto"
+}
