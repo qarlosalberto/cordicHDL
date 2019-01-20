@@ -2,6 +2,7 @@
 vivado_project/
 node_modules/
 vunit_out/
+html/
 tmp
 *.gcda
 *.gcno
@@ -15,5 +16,6 @@ tmp
 *.pyc
 *.s
 out.xml
+doc/gen
 psl_coverage.json
 modelsim.do
