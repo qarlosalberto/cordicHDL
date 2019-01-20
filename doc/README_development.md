@@ -12,6 +12,11 @@ Respository description. Module functions.
 
 ## Tests
 ```
+npm test
+```
+or
+
+```
 cd ./tb; python cordic_sincos_engine_run.py
 ```
 
