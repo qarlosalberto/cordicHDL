@@ -1,7 +1,6 @@
 -------------------------------------------------------
 --! @file  cordic_sincos_engine.vhd
 --! @brief sum calculation
---! @todo reduce xilinx mult
 --! @todo reset
 --! @todo reduce bits r2_ang
 --! @todo reduce bits r1_input
