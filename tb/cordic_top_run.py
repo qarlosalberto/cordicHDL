@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+  # -*- coding: utf-8 -*-
 # Copyright 2018 Carlos Alberto Ruiz Naranjo
 # carlosruiznaranjo@gmail.com
 #
@@ -20,8 +20,8 @@
 from os.path import join , dirname, abspath
 import subprocess
 import sys
-from vunit.ghdl_interface import GHDLInterface
-from vunit.simulator_factory import SIMULATOR_FACTORY
+from vunit.sim_if.ghdl import GHDLInterface
+from vunit.sim_if.factory import SIMULATOR_FACTORY
 from vunit   import VUnit, VUnitCLI
 import numpy as np
 import math
