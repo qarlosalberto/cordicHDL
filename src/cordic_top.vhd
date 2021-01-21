@@ -81,8 +81,4 @@ begin
     );
   end generate arctgmag;
 
-  -- -- PSL test
-  -- psl default clock is rising_edge (clk);
-  -- psl EXAMPLE_PSL: cover clk;
-
 end rtl;
