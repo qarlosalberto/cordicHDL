@@ -1,5 +1,4 @@
-
- ![Teros HDL logo ](doc/logo.png)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://https://github.com/qarlosalberto/cordicHDL)
 
 # Cordic
 
