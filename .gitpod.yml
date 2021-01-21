@@ -1,2 +1,5 @@
-# The Docker image to run your workspace in. Defaults to gitpod/workspace-full
 image: ghdl/vunit:llvm
+
+vscode:
+  extensions:
+    - teros-technology.teroshdl@0.1.6
