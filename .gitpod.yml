@@ -1,5 +1,4 @@
 image: ghdl/vunit:llvm
-
 vscode:
   extensions:
     - teros-technology.teroshdl@0.1.6
