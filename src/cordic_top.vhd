@@ -26,19 +26,6 @@ use ieee.numeric_std.all;
 use work.cordic_engines_pkg.all;
 
 --! Implementation of cordic.
---! Wavedrom example:
---! {signal: [
---!   {name: 'clk', wave: 'p.....|...'},
---!   {name: 'dv_in', wave: '1.....|01.'}
---!   {name: 'data_0_in', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
---!   {name: 'data_1_in', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
---!   {name: 'data_0_in', wave: 'x.345x|=.x', data: ['data0', 'data1', 'data2', 'data3']},
---!   {name: 'data_1_in', wave: 'x.345x|=.x', data: ['data0', 'data1', 'data2', 'data3']},
---!   {name: 'dv_out', wave: '1.....|01.'}
---!   {name: 'req', wave: '0.1..0|1.0'},
---!   {},
---! ]}
-
 entity cordic_top is
   generic (
     g_MODE : integer := 1

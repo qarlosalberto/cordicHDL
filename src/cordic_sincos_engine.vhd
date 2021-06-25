@@ -16,22 +16,12 @@
 -- You should have received a copy of the GNU General Public License
 -- along with cordicHDL.  If not, see <https://www.gnu.org/licenses/>.
 
--------------------------------------------------------
---! @file  cordic_sincos_engine.vhd
---! @brief sum calculation
---! @todo reset
---! @todo reduce bits r2_ang
---! @todo reduce bits r1_input
---! @defgroup cordic
--------------------------------------------------------
-
 --! Standard library.
 library ieee;
 --! Logic elements.
 use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
-
 
 --! Sine and cosine cordic.
 entity cordic_sincos_engine is

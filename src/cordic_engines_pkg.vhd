@@ -16,7 +16,6 @@
 -- You should have received a copy of the GNU General Public License
 -- along with cordicHDL.  If not, see <https://www.gnu.org/licenses/>.
 
-
 --! Standard library.
 library ieee;
 --! Logic elements.
