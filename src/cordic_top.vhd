@@ -16,15 +16,6 @@
 -- You should have received a copy of the GNU General Public License
 -- along with cordicHDL.  If not, see <https://www.gnu.org/licenses/>.
 
--------------------------------------------------------
---! @file  cordic_sincos_engine.vhd
---! @brief sum calculation
---! @todo reset
---! @todo reduce bits r2_ang
---! @todo reduce bits r1_input
---! @defgroup cordic
--------------------------------------------------------
-
 --! Standard library.
 library ieee;
 --! Logic elements.
@@ -34,22 +25,32 @@ use ieee.numeric_std.all;
 --! cordic sincos
 use work.cordic_engines_pkg.all;
 
---! @brief   implementation
---! @details implementation of cordic
---! @ingroup cordic
+--! Implementation of cordic.
+--! Wavedrom example:
+--! {signal: [
+--!   {name: 'clk', wave: 'p.....|...'},
+--!   {name: 'dv_in', wave: '1.....|01.'}
+--!   {name: 'data_0_in', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
+--!   {name: 'data_1_in', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
+--!   {name: 'data_0_in', wave: 'x.345x|=.x', data: ['data0', 'data1', 'data2', 'data3']},
+--!   {name: 'data_1_in', wave: 'x.345x|=.x', data: ['data0', 'data1', 'data2', 'data3']},
+--!   {name: 'dv_out', wave: '1.....|01.'}
+--!   {name: 'req', wave: '0.1..0|1.0'},
+--!   {},
+--! ]}
 
 entity cordic_top is
   generic (
     g_MODE : integer := 1
   );
   port (
-    clk        : in  std_logic; --! clock
-    dv_in      : in  std_logic; --! data valid in
-    data_0_in  : in  std_logic_vector (19 downto 0); --! data 0 in
-    data_1_in  : in  std_logic_vector (19 downto 0); --! data 1 in
-    data_0_out : out std_logic_vector (19 downto 0); --! data 0 out
-    data_1_out : out std_logic_vector (19 downto 0); --! data 1 out
-    dv_out     : out std_logic --! data valid out
+    clk        : in  std_logic; --! Clock.
+    dv_in      : in  std_logic; --! Data valid in.
+    data_0_in  : in  std_logic_vector (19 downto 0); --! Data 0 in.
+    data_1_in  : in  std_logic_vector (19 downto 0); --! Data 1 in.
+    data_0_out : out std_logic_vector (19 downto 0); --! Data 0 out.
+    data_1_out : out std_logic_vector (19 downto 0); --! Data 1 out.
+    dv_out     : out std_logic --! Data valid out.
   );
 end cordic_top;
 

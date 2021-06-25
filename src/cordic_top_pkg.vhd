@@ -15,14 +15,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with cordicHDL.  If not, see <https://www.gnu.org/licenses/>.
-
--------------------------------------------------------
---! @file  cordic_top_pkg.vhd
---! @brief Core package
---! @todo
---! @defgroup cordic
--------------------------------------------------------
-
 --! Standard library.
 library ieee;
 --! Logic elements.
@@ -30,10 +22,8 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 
---! @brief   package
---! @details package of cordic
---! @ingroup cordic
 
+--! Cordic top declaration.
 package cordic_top_pkg is
 
   component cordic_top is

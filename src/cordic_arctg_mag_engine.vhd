@@ -16,13 +16,6 @@
 -- You should have received a copy of the GNU General Public License
 -- along with cordicHDL.  If not, see <https://www.gnu.org/licenses/>.
 
--------------------------------------------------------
---! @file  arctg_mag_engine.vhd
---! @brief implementation of arctg-magnitude cordic
---! @todo reset
---! @ingroup cordic
--------------------------------------------------------
-
 --! Standard library.
 library ieee;
 --! Logic elements.
@@ -30,18 +23,16 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 
---! @brief   implementation
---! @details implementation of arctg-magnitude cordic
---! @ingroup cordic
+--! Implementation of arctg-magnitude cordic
 entity cordic_arctg_mag_engine is
   port (
-    clk     : in  std_logic; --! clock
-    dv_in   : in  std_logic; --! data valid input
+    clk     : in  std_logic; --! Clock.
+    dv_in   : in  std_logic; --! Data valid input.
     x_in    : in  std_logic_vector (19 downto 0);   --! x in Q2.17 format [0,1]
     y_in    : in  std_logic_vector (19 downto 0);   --! y in Q2.17 format [0,1]
     arctg_out : out std_logic_vector (19 downto 0); --! arctan(y/x)
     mag_out   : out std_logic_vector (19 downto 0); --! magnitude sqrt(x*x+y*y)
-    dv_out  : out std_logic --! data valid output
+    dv_out  : out std_logic --! Data valid output.
   );
 end cordic_arctg_mag_engine;
 

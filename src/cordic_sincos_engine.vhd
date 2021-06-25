@@ -32,18 +32,16 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 
---! @brief   implementation
---! @details implementation of cordic
---! @ingroup cordic
 
+--! Sine and cosine cordic.
 entity cordic_sincos_engine is
   port (
-    clk     : in  std_logic; --! clock
-    dv_in   : in  std_logic; --! data valid input
-    data_in : in  std_logic_vector (19 downto 0); --! angle in radians Q2.17 format [-pi,pi]
-    cos_out : out std_logic_vector (19 downto 0); --! cosine
-    sin_out : out std_logic_vector (19 downto 0); --! sine
-    dv_out  : out std_logic --! data valid output
+    clk     : in  std_logic; --! Clock.
+    dv_in   : in  std_logic; --! Data valid input.
+    data_in : in  std_logic_vector (19 downto 0); --! Angle in radians Q2.17 format [-pi,pi]
+    cos_out : out std_logic_vector (19 downto 0); --! Cosine.
+    sin_out : out std_logic_vector (19 downto 0); --! Sine.
+    dv_out  : out std_logic --! Data valid output.
   );
 end cordic_sincos_engine;
 
