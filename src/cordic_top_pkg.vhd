@@ -23,7 +23,6 @@ use ieee.std_logic_1164.all;
 --! arithmetic functions.
 use ieee.numeric_std.all;
 
-
 --! Cordic top declaration.
 package cordic_top_pkg is
 
