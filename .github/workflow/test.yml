@@ -14,3 +14,4 @@ jobs:
 
     - name: '🚀 Deploy'
       uses: TerosTechnology/teroshdl-documenter-action
+  
