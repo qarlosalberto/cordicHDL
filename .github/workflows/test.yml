@@ -21,5 +21,11 @@ jobs:
       shell: bash
 
     - name: '🚀 Deploy'
-      uses: TerosTechnology/teroshdl-documenter-action@0.0.7
+      uses: TerosTechnology/teroshdl-documenter-action@0.0.8
+
+    - run: pwd
+      shell: bash
+
+    - run: ls
+      shell: bash
   
