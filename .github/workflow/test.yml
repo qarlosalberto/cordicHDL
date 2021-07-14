@@ -1,0 +1,16 @@
+name: 'Documentation'
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  BTD:
+    runs-on: ubuntu-latest
+    name: 'sample'
+
+    steps:
+
+    - name: '🚀 Deploy'
+      uses: TerosTechnology/teroshdl-documenter-action
