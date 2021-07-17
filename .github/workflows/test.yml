@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: '🚀 Deploy'
-      uses: TerosTechnology/teroshdl-documenter-action@0.0.11
+      uses: TerosTechnology/teroshdl-documenter-action@master
 
     - name: '📤 Upload artifact HTML'
       uses: actions/upload-artifact@master
